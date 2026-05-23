@@ -9,6 +9,7 @@ export default function Navbar() {
   const links = [
     { href: "/", label: "Главная" },
     { href: "/products", label: "Продукты" },
+    { href: "/updates", label: "Обновления" },
     { href: "/policy", label: "Политика" },
     { href: "/terms", label: "Условия" },
   ];

@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const plans = [
   {
     name: "30 дней",
@@ -29,7 +33,34 @@ const plans = [
   },
 ];
 
+const paymentMethods = [
+  { id: "card_ru", name: "Карта РФ", icon: "💳", description: "Visa, MasterCard, МИР" },
+  { id: "card_int", name: "Карта (International)", icon: "🌍", description: "Visa, MasterCard" },
+  { id: "paypal", name: "PayPal", icon: "🅿️", description: "Международные платежи" },
+  { id: "crypto", name: "Криптовалюта", icon: "₿", description: "BTC, ETH, USDT" },
+  { id: "funpay", name: "FunPay", icon: "🛒", description: "Получите ключ активации" },
+  { id: "sbp", name: "СБП", icon: "🏦", description: "Система быстрых платежей" },
+];
+
 export default function Products() {
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleBuy = (planName: string) => {
+    setSelectedPlan(planName);
+    setShowModal(true);
+  };
+
+  const handlePayment = (methodId: string) => {
+    // Here you would redirect to payment
+    if (methodId === "funpay") {
+      window.open("https://funpay.com/", "_blank");
+    } else {
+      alert(`Оплата через ${methodId} будет доступна скоро`);
+    }
+    setShowModal(false);
+  };
+
   return (
     <div className="gradient-top pt-32 pb-20 bg-grid min-h-screen">
       <div className="max-w-6xl mx-auto px-4">
@@ -51,7 +82,6 @@ export default function Products() {
                   ? "border-red-500/40 bg-gradient-to-b from-red-500/10 to-transparent glow-red-sm"
                   : "border-white/5 bg-white/[0.02]"
               }`}
-              style={{ animationDelay: `${i * 0.1}s` }}
             >
               {plan.popular && (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-600 text-white text-xs font-semibold rounded-full glow-red-sm">
@@ -74,6 +104,7 @@ export default function Products() {
                 ))}
               </ul>
               <button
+                onClick={() => handleBuy(plan.name)}
                 className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   plan.popular
                     ? "bg-red-600 hover:bg-red-500 text-white glow-red-sm hover:glow-red"
@@ -86,6 +117,45 @@ export default function Products() {
           ))}
         </div>
       </div>
+
+      {/* Payment Modal */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            onClick={() => setShowModal(false)}
+          />
+          <div className="relative w-full max-w-md p-8 rounded-2xl border border-white/10 bg-[#111111] animate-fade-in">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors text-xl"
+            >
+              ✕
+            </button>
+
+            <h3 className="text-xl font-bold mb-2">Способ оплаты</h3>
+            <p className="text-gray-500 text-sm mb-6">
+              План: <span className="text-white">{selectedPlan}</span>
+            </p>
+
+            <div className="space-y-3">
+              {paymentMethods.map((method) => (
+                <button
+                  key={method.id}
+                  onClick={() => handlePayment(method.id)}
+                  className="w-full flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:border-red-500/30 hover:bg-red-500/5 transition-all duration-200 text-left"
+                >
+                  <span className="text-2xl">{method.icon}</span>
+                  <div>
+                    <p className="text-sm font-medium text-white">{method.name}</p>
+                    <p className="text-xs text-gray-500">{method.description}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

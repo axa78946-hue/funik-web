@@ -5,7 +5,7 @@ export default function Policy() {
         <h1 className="text-4xl font-bold mb-4">
           Политика <span className="text-gradient">конфиденциальности</span>
         </h1>
-        <p className="text-gray-500 mb-10">Последнее обновление: январь 2024</p>
+        <p className="text-gray-500 mb-10">Последнее обновление: 23 мая 2026</p>
 
         <div className="space-y-6">
           {[
