@@ -1,77 +1,83 @@
 const plans = [
   {
-    name: "Навсегда",
-    price: "699",
-    period: "навсегда",
-    features: ["Полный доступ", "Все обновления", "Приоритетная поддержка", "Без ограничений по времени"],
-    popular: true,
+    name: "30 дней",
+    price: "349",
+    period: "/мес",
+    features: ["Полный доступ", "Все обновления", "Поддержка в Discord"],
+    popular: false,
   },
   {
     name: "90 дней",
     price: "499",
-    period: "90 дней",
-    features: ["Полный доступ", "Все обновления", "Поддержка в Discord"],
+    period: "/3 мес",
+    features: ["Полный доступ", "Все обновления", "Поддержка в Discord", "Приоритет в очереди"],
     popular: false,
   },
   {
-    name: "30 дней",
-    price: "349",
-    period: "30 дней",
-    features: ["Полный доступ", "Все обновления", "Поддержка в Discord"],
-    popular: false,
+    name: "Навсегда",
+    price: "699",
+    period: "",
+    features: ["Полный доступ навсегда", "Все обновления", "Приоритетная поддержка", "Ранний доступ к фичам", "Роль в Discord"],
+    popular: true,
   },
   {
     name: "Сброс HWID",
     price: "349",
-    period: "разово",
-    features: ["Сброс привязки оборудования", "Моментальная активация"],
+    period: "",
+    features: ["Сброс привязки", "Моментальная активация"],
     popular: false,
   },
 ];
 
 export default function Products() {
   return (
-    <div className="gradient-top pt-32 pb-20">
+    <div className="gradient-top pt-32 pb-20 bg-grid min-h-screen">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-4xl font-bold text-center mb-4">Тарифы</h1>
-        <p className="text-gray-400 text-center mb-12 max-w-xl mx-auto">
-          Выберите подходящий план и получите доступ к Funik Client
-        </p>
+        <div className="text-center mb-16 animate-fade-in">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Выберите <span className="text-gradient">план</span>
+          </h1>
+          <p className="text-gray-400 max-w-xl mx-auto">
+            Получите доступ к полному функционалу Funik Client
+          </p>
+        </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan) => (
+          {plans.map((plan, i) => (
             <div
               key={plan.name}
-              className={`relative p-6 rounded-xl border ${
+              className={`relative p-7 rounded-2xl border flex flex-col card-hover ${
                 plan.popular
-                  ? "border-accent bg-accent/5"
-                  : "border-white/10 bg-white/5"
-              } flex flex-col`}
+                  ? "border-red-500/40 bg-gradient-to-b from-red-500/10 to-transparent glow-red-sm"
+                  : "border-white/5 bg-white/[0.02]"
+              }`}
+              style={{ animationDelay: `${i * 0.1}s` }}
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-accent text-white text-xs font-medium rounded-full">
-                  Популярный
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-600 text-white text-xs font-semibold rounded-full glow-red-sm">
+                  Лучший выбор
                 </span>
               )}
-              <h3 className="text-lg font-semibold mb-2">{plan.name}</h3>
-              <div className="mb-4">
-                <span className="text-3xl font-bold">{plan.price}</span>
-                <span className="text-gray-400 ml-1">RUB</span>
+              <h3 className="text-lg font-semibold mb-1">{plan.name}</h3>
+              <div className="mb-6">
+                <span className="text-4xl font-bold">{plan.price}</span>
+                <span className="text-gray-500 ml-1">₽{plan.period}</span>
               </div>
-              <p className="text-gray-500 text-sm mb-4">{plan.period}</p>
-              <ul className="space-y-2 mb-6 flex-1">
+              <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((feature) => (
-                  <li key={feature} className="text-sm text-gray-300 flex items-center gap-2">
-                    <span className="text-accent">✓</span>
+                  <li key={feature} className="text-sm text-gray-300 flex items-center gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                      <span className="text-red-400 text-xs">✓</span>
+                    </span>
                     {feature}
                   </li>
                 ))}
               </ul>
               <button
-                className={`w-full py-2.5 rounded-lg font-medium text-sm transition-colors ${
+                className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
                   plan.popular
-                    ? "bg-accent hover:bg-red-700 text-white"
-                    : "bg-white/10 hover:bg-white/20 text-white"
+                    ? "bg-red-600 hover:bg-red-500 text-white glow-red-sm hover:glow-red"
+                    : "bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20"
                 }`}
               >
                 Купить
