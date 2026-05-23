@@ -19,7 +19,6 @@ const features = [
 ];
 
 const stats = [
-  { value: "1000+", label: "Пользователей" },
   { value: "99.9%", label: "Аптайм" },
   { value: "24/7", label: "Поддержка" },
   { value: "50+", label: "Функций" },
@@ -60,7 +59,7 @@ export default function Home() {
       {/* Stats */}
       <section className="py-16 border-y border-white/5">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-3 gap-8">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
