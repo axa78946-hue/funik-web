@@ -70,14 +70,14 @@ export default function Profile() {
 
         // Check if admin
         try {
-          const { data: adminData } = await supabase
+          const { data: adminData, error: adminErr } = await supabase
             .from("admins")
             .select("user_id")
             .eq("user_id", u.id)
-            .single();
-          if (adminData) setIsAdmin(true);
+            .maybeSingle();
+          if (!adminErr && adminData) setIsAdmin(true);
         } catch {
-          // Not admin, ignore
+          // Not admin or table error, ignore
         }
       } catch {
         setLoading(false);
