@@ -38,14 +38,6 @@ export default function Profile() {
   const [settingsMessage, setSettingsMessage] = useState("");
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      // If still loading after 5s, show auth buttons
-      if (loading) {
-        setLoading(false);
-        setNotAuthed(true);
-      }
-    }, 5000);
-
     const getUser = async () => {
       try {
         const supabase = getSupabase();
@@ -57,27 +49,29 @@ export default function Profile() {
         }
         const u = data.user;
         setUser({ id: u.id, email: u.email, username: u.user_metadata?.username, created_at: u.created_at });
-
-        // Load subscription
-        const { data: sub } = await supabase
-          .from("subscriptions")
-          .select("plan, hwid, expires_at, is_active")
-          .eq("user_id", u.id)
-          .eq("is_active", true)
-          .order("created_at", { ascending: false })
-          .limit(1)
-          .single();
-
-        if (sub) setSubscription(sub);
         setLoading(false);
+
+        // Load subscription (don't fail if table doesn't exist)
+        try {
+          const { data: sub } = await supabase
+            .from("subscriptions")
+            .select("plan, hwid, expires_at, is_active")
+            .eq("user_id", u.id)
+            .eq("is_active", true)
+            .order("created_at", { ascending: false })
+            .limit(1)
+            .single();
+
+          if (sub) setSubscription(sub);
+        } catch {
+          // Table might not exist yet, ignore
+        }
       } catch {
         setLoading(false);
         setNotAuthed(true);
       }
     };
     getUser();
-
-    return () => clearTimeout(timeout);
   }, []);
 
   const handleActivateKey = async () => {
