@@ -393,7 +393,7 @@ export default function Profile() {
               <p className="text-gray-400 text-sm mb-4">
                 Скачайте лаунчер для автоматической установки и обновления клиента.
               </p>
-              <a href="https://github.com/axa78946-hue/-funik-client-files/raw/main/FunikLoader.exe" download className="inline-block px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors">
+              <a href="https://github.com/axa78946-hue/-funik-client-files/raw/main/FunikLoader.zip" download className="inline-block px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors">
                 Скачать
               </a>
             </div>
