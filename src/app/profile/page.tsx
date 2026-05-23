@@ -38,26 +38,30 @@ export default function Profile() {
 
   useEffect(() => {
     const getUser = async () => {
-      const supabase = getSupabase();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
+      try {
+        const supabase = getSupabase();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          router.push("/login");
+          return;
+        }
+        setUser({ id: user.id, email: user.email, username: user.user_metadata?.username, created_at: user.created_at });
+
+        // Load subscription
+        const { data: sub } = await supabase
+          .from("subscriptions")
+          .select("plan, hwid, expires_at, is_active")
+          .eq("user_id", user.id)
+          .eq("is_active", true)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        if (sub) setSubscription(sub);
+        setLoading(false);
+      } catch {
         router.push("/login");
-        return;
       }
-      setUser({ id: user.id, email: user.email, username: user.user_metadata?.username, created_at: user.created_at });
-
-      // Load subscription
-      const { data: sub } = await supabase
-        .from("subscriptions")
-        .select("plan, hwid, expires_at, is_active")
-        .eq("user_id", user.id)
-        .eq("is_active", true)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .single();
-
-      if (sub) setSubscription(sub);
-      setLoading(false);
     };
     getUser();
   }, [router]);
