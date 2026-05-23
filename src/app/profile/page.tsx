@@ -7,15 +7,24 @@ import { useRouter } from "next/navigation";
 type Tab = "account" | "settings" | "launcher";
 
 interface UserData {
+  id: string;
   email: string | undefined;
   username: string | undefined;
   created_at: string | undefined;
+}
+
+interface SubscriptionData {
+  plan: string;
+  hwid: string | null;
+  expires_at: string | null;
+  is_active: boolean;
 }
 
 export default function Profile() {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>("account");
+  const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
   const router = useRouter();
 
   // Account tab state
@@ -29,12 +38,25 @@ export default function Profile() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await getSupabase().auth.getUser();
+      const supabase = getSupabase();
+      const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
         router.push("/login");
         return;
       }
-      setUser({ email: user.email, username: user.user_metadata?.username, created_at: user.created_at });
+      setUser({ id: user.id, email: user.email, username: user.user_metadata?.username, created_at: user.created_at });
+
+      // Load subscription
+      const { data: sub } = await supabase
+        .from("subscriptions")
+        .select("plan, hwid, expires_at, is_active")
+        .eq("user_id", user.id)
+        .eq("is_active", true)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .single();
+
+      if (sub) setSubscription(sub);
       setLoading(false);
     };
     getUser();
@@ -42,8 +64,59 @@ export default function Profile() {
 
   const handleActivateKey = async () => {
     if (!key.trim()) return;
-    setKeyMessage("Ключ активирован успешно!");
+    setKeyMessage("");
+    const supabase = getSupabase();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // Find the key
+    const { data: keyData, error: keyError } = await supabase
+      .from("keys")
+      .select("*")
+      .eq("key", key.trim().toUpperCase())
+      .eq("is_used", false)
+      .single();
+
+    if (keyError || !keyData) {
+      setKeyMessage("Ключ не найден или уже использован");
+      return;
+    }
+
+    // Mark key as used
+    await supabase
+      .from("keys")
+      .update({ is_used: true, used_by: user.id, used_at: new Date().toISOString() })
+      .eq("id", keyData.id);
+
+    // Create subscription
+    let expiresAt: string | null = null;
+    if (keyData.plan === "90days") {
+      expiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString();
+    } else if (keyData.plan === "30days") {
+      expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
+    }
+
+    await supabase.from("subscriptions").insert({
+      user_id: user.id,
+      plan: keyData.plan,
+      hwid: subscription?.hwid || null,
+      expires_at: expiresAt,
+      is_active: true,
+    });
+
+    setKeyMessage("Ключ активирован! Подписка добавлена.");
     setKey("");
+
+    // Reload subscription
+    const { data: sub } = await supabase
+      .from("subscriptions")
+      .select("plan, hwid, expires_at, is_active")
+      .eq("user_id", user.id)
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single();
+    if (sub) setSubscription(sub);
   };
 
   const handleUpdateEmail = async () => {
@@ -142,7 +215,24 @@ export default function Profile() {
               </div>
               <div>
                 <span className="text-sm text-gray-400">HWID</span>
-                <p className="text-white font-mono text-sm">Не привязан</p>
+                <p className="text-white font-mono text-sm">{subscription?.hwid || "Не привязан"}</p>
+              </div>
+              <div>
+                <span className="text-sm text-gray-400">Подписка</span>
+                {subscription ? (
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="px-2 py-0.5 rounded text-xs bg-green-500/20 text-green-400">
+                      {subscription.plan === "forever" ? "Навсегда" : subscription.plan === "90days" ? "90 дней" : "30 дней"}
+                    </span>
+                    {subscription.expires_at && (
+                      <span className="text-gray-400 text-xs">
+                        до {new Date(subscription.expires_at).toLocaleDateString("ru-RU")}
+                      </span>
+                    )}
+                  </div>
+                ) : (
+                  <p className="text-gray-500 text-sm">Нет активной подписки</p>
+                )}
               </div>
             </div>
 
