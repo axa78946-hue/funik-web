@@ -94,15 +94,6 @@ export default function Admin() {
     setGiveMessage("");
     const supabase = getSupabase();
 
-    // Find user by email
-    const { data: users } = await supabase
-      .from("auth.users")
-      .select("id")
-      .eq("email", giveEmail)
-      .single();
-
-    // Alternative: use admin API or RPC
-    // For now, we'll create subscription with email lookup via RPC
     let expiresAt: string | null = null;
     if (givePlan === "90days") {
       expiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString();
@@ -110,9 +101,12 @@ export default function Admin() {
       expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
     }
 
-    // Use RPC function to give subscription by email
-    const { error } = await supabase.rpc("give_subscription", {
-      target_email: giveEmail,
+    // Determine if input is email or username
+    const isEmail = giveEmail.includes("@");
+
+    const { error } = await supabase.rpc("give_subscription_by_identifier", {
+      identifier: giveEmail.trim(),
+      is_email: isEmail,
       sub_plan: givePlan,
       sub_expires_at: expiresAt,
     });
@@ -335,9 +329,9 @@ export default function Admin() {
             <h3 className="text-lg font-semibold mb-4">Выдать подписку пользователю</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Email пользователя</label>
+                <label className="block text-sm text-gray-400 mb-1">Email или ник пользователя</label>
                 <input
-                  type="email"
+                  type="text"
                   value={giveEmail}
                   onChange={(e) => setGiveEmail(e.target.value)}
                   placeholder="user@example.com"
