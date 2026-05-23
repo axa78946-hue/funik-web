@@ -51,7 +51,7 @@ export default function Home() {
               Начать
             </Link>
             <Link
-              href="https://discord.gg/"
+              href="https://discord.gg/CE5Jhssp"
               className="px-8 py-3.5 border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-white font-semibold rounded-xl transition-all duration-200"
             >
               Discord

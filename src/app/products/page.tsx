@@ -40,7 +40,7 @@ export default function Products() {
             <div>
               <p className="text-white font-semibold">Покупка временно недоступна</p>
               <p className="text-gray-400 text-sm mt-1">
-                На данный момент клиент купить нельзя. Открытый бета-тест начнётся <span className="text-white font-medium">27 мая (суббота)</span>. Следите за обновлениями в Discord.
+                На данный момент клиент купить нельзя. Открытый бета-тест начнётся <span className="text-white font-medium">27 мая (суббота)</span>. Следите за обновлениями в <a href="https://discord.gg/CE5Jhssp" target="_blank" className="text-red-400 hover:text-red-300 underline">Discord</a>.
               </p>
             </div>
           </div>
