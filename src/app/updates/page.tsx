@@ -1,39 +1,15 @@
 const updates = [
   {
-    version: "2.0.0",
+    version: "1.0.0",
     date: "23 мая 2026",
-    title: "Крупное обновление",
+    title: "Запуск сайта",
     changes: [
-      "Полный редизайн интерфейса клиента",
-      "Новая система модулей",
-      "Улучшена производительность на 40%",
-      "Добавлена поддержка Minecraft 1.21",
-      "Новый лаунчер с автообновлением",
+      "Запущен официальный сайт Funik Client",
+      "Добавлена система регистрации и авторизации",
+      "Страница продуктов и тарифов",
+      "Профиль пользователя с активацией ключей",
     ],
     tag: "major",
-  },
-  {
-    version: "1.5.0",
-    date: "10 мая 2026",
-    title: "Новые функции",
-    changes: [
-      "Добавлен KillAura с новыми настройками",
-      "Улучшен ESP (больше опций отрисовки)",
-      "Фикс вылетов на серверах с античитом",
-      "Оптимизация использования RAM",
-    ],
-    tag: "feature",
-  },
-  {
-    version: "1.4.2",
-    date: "28 апреля 2026",
-    title: "Багфиксы",
-    changes: [
-      "Исправлен краш при входе на Hypixel",
-      "Фикс отображения GUI на 4K мониторах",
-      "Исправлена работа AutoFish",
-    ],
-    tag: "fix",
   },
 ];
 
@@ -52,7 +28,7 @@ function getTagStyle(tag: string) {
 
 function getTagLabel(tag: string) {
   switch (tag) {
-    case "major": return "Мажорное";
+    case "major": return "Релиз";
     case "feature": return "Фичи";
     case "fix": return "Фиксы";
     default: return tag;
@@ -76,11 +52,6 @@ export default function Updates() {
               key={update.version}
               className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] card-hover"
             >
-              {/* Timeline dot */}
-              {i < updates.length - 1 && (
-                <div className="absolute left-10 top-full w-px h-8 bg-white/5" />
-              )}
-
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <span className="text-sm font-mono text-white bg-white/5 px-3 py-1 rounded-lg">
                   v{update.version}

@@ -35,13 +35,6 @@ export default function Home() {
       <section className="gradient-top pt-32 pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-red-600/5 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
-          <div className="animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-500/20 bg-red-500/5 text-red-400 text-sm mb-8">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              Версия 2.0 доступна
-            </div>
-          </div>
-
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-slide-up">
             <span className="text-gradient">Funik</span> Client
           </h1>
