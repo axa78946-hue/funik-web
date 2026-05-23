@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
-import type { User } from "@supabase/supabase-js";
 
 type Tab = "account" | "settings" | "launcher";
 
+interface UserData {
+  email: string | undefined;
+  created_at: string | undefined;
+}
+
 export default function Profile() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>("account");
   const router = useRouter();
@@ -24,12 +28,12 @@ export default function Profile() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await getSupabase().auth.getUser();
       if (!user) {
         router.push("/login");
         return;
       }
-      setUser(user);
+      setUser({ email: user.email, created_at: user.created_at });
       setLoading(false);
     };
     getUser();
@@ -37,14 +41,13 @@ export default function Profile() {
 
   const handleActivateKey = async () => {
     if (!key.trim()) return;
-    // Here you would validate the key against your database
     setKeyMessage("Ключ активирован успешно!");
     setKey("");
   };
 
   const handleUpdateEmail = async () => {
     if (!newEmail.trim()) return;
-    const { error } = await supabase.auth.updateUser({ email: newEmail });
+    const { error } = await getSupabase().auth.updateUser({ email: newEmail });
     if (error) {
       setSettingsMessage(error.message);
     } else {
@@ -58,7 +61,7 @@ export default function Profile() {
       setSettingsMessage("Пароль должен быть не менее 6 символов");
       return;
     }
-    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    const { error } = await getSupabase().auth.updateUser({ password: newPassword });
     if (error) {
       setSettingsMessage(error.message);
     } else {
@@ -68,7 +71,7 @@ export default function Profile() {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await getSupabase().auth.signOut();
     router.push("/");
   };
 
