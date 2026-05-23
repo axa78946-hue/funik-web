@@ -8,6 +8,7 @@ type Tab = "account" | "settings" | "launcher";
 
 interface UserData {
   email: string | undefined;
+  username: string | undefined;
   created_at: string | undefined;
 }
 
@@ -33,7 +34,7 @@ export default function Profile() {
         router.push("/login");
         return;
       }
-      setUser({ email: user.email, created_at: user.created_at });
+      setUser({ email: user.email, username: user.user_metadata?.username, created_at: user.created_at });
       setLoading(false);
     };
     getUser();
@@ -123,6 +124,10 @@ export default function Profile() {
         {activeTab === "account" && (
           <div className="space-y-6">
             <div className="p-6 rounded-xl border border-white/10 bg-white/5 space-y-4">
+              <div>
+                <span className="text-sm text-gray-400">Ник</span>
+                <p className="text-white">{user?.username || "—"}</p>
+              </div>
               <div>
                 <span className="text-sm text-gray-400">Email</span>
                 <p className="text-white">{user?.email}</p>

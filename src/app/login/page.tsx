@@ -79,6 +79,11 @@ export default function Login() {
             Зарегистрироваться
           </Link>
         </p>
+        <p className="text-center text-gray-400 text-sm mt-2">
+          <Link href="/reset-password" className="text-gray-500 hover:text-white transition-colors">
+            Забыли пароль?
+          </Link>
+        </p>
       </div>
     </div>
   );

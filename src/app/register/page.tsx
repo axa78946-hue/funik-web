@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 export default function Register() {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -22,11 +23,21 @@ export default function Register() {
       return;
     }
 
+    if (username.trim().length < 3) {
+      setError("Ник должен быть не менее 3 символов");
+      return;
+    }
+
     setLoading(true);
 
     const { error } = await getSupabase().auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          username: username.trim(),
+        },
+      },
     });
 
     if (error) {
@@ -52,6 +63,19 @@ export default function Register() {
               className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent"
               placeholder="you@example.com"
               required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm text-gray-400 mb-1">Ник</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent"
+              placeholder="FunikPlayer"
+              required
+              minLength={3}
             />
           </div>
 
