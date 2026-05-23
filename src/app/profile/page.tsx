@@ -23,6 +23,7 @@ interface SubscriptionData {
 export default function Profile() {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [notAuthed, setNotAuthed] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>("account");
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
   const router = useRouter();
@@ -37,21 +38,31 @@ export default function Profile() {
   const [settingsMessage, setSettingsMessage] = useState("");
 
   useEffect(() => {
+    const timeout = setTimeout(() => {
+      // If still loading after 5s, show auth buttons
+      if (loading) {
+        setLoading(false);
+        setNotAuthed(true);
+      }
+    }, 5000);
+
     const getUser = async () => {
       try {
         const supabase = getSupabase();
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) {
-          router.push("/login");
+        const { data, error } = await supabase.auth.getUser();
+        if (error || !data.user) {
+          setLoading(false);
+          setNotAuthed(true);
           return;
         }
-        setUser({ id: user.id, email: user.email, username: user.user_metadata?.username, created_at: user.created_at });
+        const u = data.user;
+        setUser({ id: u.id, email: u.email, username: u.user_metadata?.username, created_at: u.created_at });
 
         // Load subscription
         const { data: sub } = await supabase
           .from("subscriptions")
           .select("plan, hwid, expires_at, is_active")
-          .eq("user_id", user.id)
+          .eq("user_id", u.id)
           .eq("is_active", true)
           .order("created_at", { ascending: false })
           .limit(1)
@@ -60,11 +71,14 @@ export default function Profile() {
         if (sub) setSubscription(sub);
         setLoading(false);
       } catch {
-        router.push("/login");
+        setLoading(false);
+        setNotAuthed(true);
       }
     };
     getUser();
-  }, [router]);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   const handleActivateKey = async () => {
     if (!key.trim()) return;
@@ -157,6 +171,31 @@ export default function Profile() {
     return (
       <div className="pt-32 pb-20 min-h-screen flex items-center justify-center">
         <p className="text-gray-400">Загрузка...</p>
+      </div>
+    );
+  }
+
+  if (notAuthed) {
+    return (
+      <div className="gradient-top pt-32 pb-20 min-h-screen">
+        <div className="max-w-md mx-auto px-4 text-center">
+          <h1 className="text-3xl font-bold mb-4">Профиль</h1>
+          <p className="text-gray-400 mb-8">Войдите или зарегистрируйтесь чтобы получить доступ к профилю</p>
+          <div className="flex gap-4 justify-center">
+            <a
+              href="/login"
+              className="px-6 py-3 bg-accent hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+            >
+              Войти
+            </a>
+            <a
+              href="/register"
+              className="px-6 py-3 border border-white/20 hover:border-white/40 text-white font-medium rounded-lg transition-colors"
+            >
+              Регистрация
+            </a>
+          </div>
+        </div>
       </div>
     );
   }
