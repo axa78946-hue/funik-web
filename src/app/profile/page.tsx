@@ -178,7 +178,7 @@ export default function Profile() {
           <div className="flex gap-4 justify-center">
             <a
               href="/login"
-              className="px-6 py-3 bg-accent hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+              className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors"
             >
               Войти
             </a>
@@ -221,7 +221,7 @@ export default function Profile() {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
                 activeTab === tab.id
-                  ? "bg-accent text-white"
+                  ? "bg-blue-600 text-white"
                   : "text-gray-400 hover:text-white"
               }`}
             >
@@ -281,11 +281,11 @@ export default function Profile() {
                   value={key}
                   onChange={(e) => setKey(e.target.value)}
                   placeholder="XXXX-XXXX-XXXX-XXXX"
-                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent font-mono"
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/50 font-mono"
                 />
                 <button
                   onClick={handleActivateKey}
-                  className="px-6 py-2.5 bg-accent hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors"
                 >
                   Активировать
                 </button>
@@ -308,11 +308,11 @@ export default function Profile() {
                   value={newEmail}
                   onChange={(e) => setNewEmail(e.target.value)}
                   placeholder="new@example.com"
-                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent"
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/50"
                 />
                 <button
                   onClick={handleUpdateEmail}
-                  className="px-6 py-2.5 bg-accent hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors"
                 >
                   Обновить
                 </button>
@@ -327,11 +327,11 @@ export default function Profile() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Новый пароль"
-                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-accent"
+                  className="flex-1 px-4 py-2.5 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500/50"
                 />
                 <button
                   onClick={handleUpdatePassword}
-                  className="px-6 py-2.5 bg-accent hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+                  className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors"
                 >
                   Обновить
                 </button>
@@ -370,7 +370,7 @@ export default function Profile() {
               <p className="text-gray-400 text-sm mb-4">
                 Скачайте лаунчер для автоматической установки и обновления клиента.
               </p>
-              <button className="px-6 py-2.5 bg-accent hover:bg-red-700 text-white font-medium rounded-lg transition-colors">
+              <button className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg transition-colors">
                 Скачать
               </button>
             </div>

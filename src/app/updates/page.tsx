@@ -16,9 +16,9 @@ const updates = [
 function getTagStyle(tag: string) {
   switch (tag) {
     case "major":
-      return "bg-red-500/10 text-red-400 border-red-500/20";
-    case "feature":
       return "bg-blue-500/10 text-blue-400 border-blue-500/20";
+    case "feature":
+      return "bg-cyan-500/10 text-cyan-400 border-cyan-500/20";
     case "fix":
       return "bg-green-500/10 text-green-400 border-green-500/20";
     default:
@@ -47,7 +47,7 @@ export default function Updates() {
         </div>
 
         <div className="space-y-8">
-          {updates.map((update, i) => (
+          {updates.map((update) => (
             <div
               key={update.version}
               className="relative p-8 rounded-2xl border border-white/5 bg-white/[0.02] card-hover"
@@ -67,7 +67,7 @@ export default function Updates() {
               <ul className="space-y-2.5">
                 {update.changes.map((change) => (
                   <li key={change} className="text-sm text-gray-400 flex items-start gap-2.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 flex-shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 flex-shrink-0" />
                     {change}
                   </li>
                 ))}

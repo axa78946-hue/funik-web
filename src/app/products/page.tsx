@@ -34,13 +34,13 @@ export default function Products() {
     <div className="gradient-top pt-32 pb-20 bg-grid min-h-screen">
       <div className="max-w-6xl mx-auto px-4">
         {/* Announcement Banner */}
-        <div className="mb-12 p-5 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 animate-fade-in">
+        <div className="mb-12 p-5 rounded-2xl border border-blue-500/20 bg-blue-500/5 animate-fade-in">
           <div className="flex items-center gap-3">
             <span className="text-2xl">⚠️</span>
             <div>
               <p className="text-white font-semibold">Покупка временно недоступна</p>
               <p className="text-gray-400 text-sm mt-1">
-                На данный момент клиент купить нельзя. Открытый бета-тест начнётся <span className="text-white font-medium">27 мая (суббота)</span>. Следите за обновлениями в <a href="https://discord.gg/CE5Jhssp" target="_blank" className="text-red-400 hover:text-red-300 underline">Discord</a>.
+                На данный момент клиент купить нельзя. Открытый бета-тест начнётся <span className="text-white font-medium">27 мая (суббота)</span>. Следите за обновлениями в <a href="https://discord.gg/CE5Jhssp" target="_blank" className="text-blue-400 hover:text-blue-300 underline">Discord</a>.
               </p>
             </div>
           </div>
@@ -61,12 +61,12 @@ export default function Products() {
               key={plan.name}
               className={`relative p-7 rounded-2xl border flex flex-col card-hover ${
                 plan.popular
-                  ? "border-red-500/40 bg-gradient-to-b from-red-500/10 to-transparent glow-red-sm"
+                  ? "border-blue-500/40 bg-gradient-to-b from-blue-500/10 to-transparent glow-blue-sm"
                   : "border-white/5 bg-white/[0.02]"
               }`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-red-600 text-white text-xs font-semibold rounded-full glow-red-sm">
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-xs font-semibold rounded-full glow-blue-sm">
                   Лучший выбор
                 </span>
               )}
@@ -78,8 +78,8 @@ export default function Products() {
               <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((feature) => (
                   <li key={feature} className="text-sm text-gray-300 flex items-center gap-2.5">
-                    <span className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center flex-shrink-0">
-                      <span className="text-red-400 text-xs">✓</span>
+                    <span className="w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0">
+                      <span className="text-blue-400 text-xs">✓</span>
                     </span>
                     {feature}
                   </li>

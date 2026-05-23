@@ -5,19 +5,16 @@ const features = [
     title: "Сообщество",
     description: "Активное комьюнити из 1000+ игроков. Discord, Telegram — мы всегда на связи.",
     icon: "👥",
-    gradient: "from-red-500/10 to-transparent",
   },
   {
     title: "Обновления",
     description: "Новые функции каждую неделю. Быстрая адаптация под новые версии Minecraft.",
     icon: "⚡",
-    gradient: "from-orange-500/10 to-transparent",
   },
   {
     title: "Поддержка",
     description: "Техподдержка 24/7. Решаем любые проблемы в течение часа.",
     icon: "🛡️",
-    gradient: "from-purple-500/10 to-transparent",
   },
 ];
 
@@ -33,7 +30,7 @@ export default function Home() {
     <div className="bg-grid">
       {/* Hero */}
       <section className="gradient-top pt-32 pb-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-red-600/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/5 via-transparent to-transparent" />
         <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-slide-up">
             <span className="text-gradient">Funik</span> Client
@@ -46,7 +43,7 @@ export default function Home() {
           <div className="flex gap-4 justify-center animate-slide-up-delay-2">
             <Link
               href="/products"
-              className="px-8 py-3.5 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-xl transition-all duration-200 glow-red hover:scale-105"
+              className="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all duration-200 glow-blue hover:scale-105"
             >
               Начать
             </Link>
@@ -90,9 +87,9 @@ export default function Home() {
             {features.map((feature) => (
               <div
                 key={feature.title}
-                className={`p-8 rounded-2xl border border-white/5 bg-gradient-to-b ${feature.gradient} card-hover relative overflow-hidden`}
+                className="p-8 rounded-2xl border border-white/5 bg-white/[0.02] card-hover relative overflow-hidden"
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-red-500/5 to-transparent rounded-bl-full" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-blue-500/5 to-transparent rounded-bl-full" />
                 <div className="text-4xl mb-5">{feature.icon}</div>
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{feature.description}</p>
@@ -110,7 +107,7 @@ export default function Home() {
               Смотрите в <span className="text-gradient">действии</span>
             </h2>
           </div>
-          <div className="aspect-video rounded-2xl overflow-hidden border border-white/10 glow-red-sm">
+          <div className="aspect-video rounded-2xl overflow-hidden border border-white/10 glow-blue-sm">
             <iframe
               className="w-full h-full"
               src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -125,14 +122,14 @@ export default function Home() {
       {/* CTA */}
       <section className="py-24">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <div className="p-12 rounded-2xl border border-red-500/20 bg-gradient-to-b from-red-500/10 to-transparent relative overflow-hidden">
+          <div className="p-12 rounded-2xl border border-blue-500/20 bg-gradient-to-b from-blue-500/10 to-transparent relative overflow-hidden">
             <div className="absolute inset-0 bg-grid opacity-50" />
             <div className="relative z-10">
               <h2 className="text-3xl font-bold mb-4">Готовы начать?</h2>
               <p className="text-gray-400 mb-8">Присоединяйтесь к тысячам игроков уже сегодня</p>
               <Link
                 href="/products"
-                className="inline-flex px-8 py-3.5 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-xl transition-all duration-200 glow-red hover:scale-105"
+                className="inline-flex px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-all duration-200 glow-blue hover:scale-105"
               >
                 Выбрать план
               </Link>

@@ -46,7 +46,7 @@ export default function Login() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/20 transition-all"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all"
                 placeholder="you@example.com"
                 required
               />
@@ -58,7 +58,7 @@ export default function Login() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-red-500/50 focus:ring-1 focus:ring-red-500/20 transition-all"
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 transition-all"
                 placeholder="••••••••"
                 required
               />
@@ -73,7 +73,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-semibold rounded-xl transition-all duration-200 glow-red-sm hover:glow-red"
+              className="w-full py-3 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold rounded-xl transition-all duration-200 glow-blue-sm hover:glow-blue"
             >
               {loading ? "Загрузка..." : "Войти"}
             </button>
@@ -83,7 +83,7 @@ export default function Login() {
         <div className="text-center mt-6 space-y-2">
           <p className="text-gray-500 text-sm">
             Нет аккаунта?{" "}
-            <Link href="/register" className="text-red-400 hover:text-red-300 transition-colors">
+            <Link href="/register" className="text-blue-400 hover:text-blue-300 transition-colors">
               Зарегистрироваться
             </Link>
           </p>
