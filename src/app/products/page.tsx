@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-
 const plans = [
   {
     name: "30 дней",
@@ -33,38 +29,24 @@ const plans = [
   },
 ];
 
-const paymentMethods = [
-  { id: "card_ru", name: "Карта РФ", icon: "💳", description: "Visa, MasterCard, МИР" },
-  { id: "card_int", name: "Карта (International)", icon: "🌍", description: "Visa, MasterCard" },
-  { id: "paypal", name: "PayPal", icon: "🅿️", description: "Международные платежи" },
-  { id: "crypto", name: "Криптовалюта", icon: "₿", description: "BTC, ETH, USDT" },
-  { id: "funpay", name: "FunPay", icon: "🛒", description: "Получите ключ активации" },
-  { id: "sbp", name: "СБП", icon: "🏦", description: "Система быстрых платежей" },
-];
-
 export default function Products() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleBuy = (planName: string) => {
-    setSelectedPlan(planName);
-    setShowModal(true);
-  };
-
-  const handlePayment = (methodId: string) => {
-    // Here you would redirect to payment
-    if (methodId === "funpay") {
-      window.open("https://funpay.com/", "_blank");
-    } else {
-      alert(`Оплата через ${methodId} будет доступна скоро`);
-    }
-    setShowModal(false);
-  };
-
   return (
     <div className="gradient-top pt-32 pb-20 bg-grid min-h-screen">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16 animate-fade-in">
+        {/* Announcement Banner */}
+        <div className="mb-12 p-5 rounded-2xl border border-yellow-500/20 bg-yellow-500/5 animate-fade-in">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">⚠️</span>
+            <div>
+              <p className="text-white font-semibold">Покупка временно недоступна</p>
+              <p className="text-gray-400 text-sm mt-1">
+                На данный момент клиент купить нельзя. Открытый бета-тест начнётся <span className="text-white font-medium">31 мая (суббота)</span>. Следите за обновлениями в Discord.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Выберите <span className="text-gradient">план</span>
           </h1>
@@ -74,7 +56,7 @@ export default function Products() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {plans.map((plan, i) => (
+          {plans.map((plan) => (
             <div
               key={plan.name}
               className={`relative p-7 rounded-2xl border flex flex-col card-hover ${
@@ -104,58 +86,15 @@ export default function Products() {
                 ))}
               </ul>
               <button
-                onClick={() => handleBuy(plan.name)}
-                className={`w-full py-3 rounded-xl font-semibold text-sm transition-all duration-200 ${
-                  plan.popular
-                    ? "bg-red-600 hover:bg-red-500 text-white glow-red-sm hover:glow-red"
-                    : "bg-white/5 hover:bg-white/10 text-white border border-white/10 hover:border-white/20"
-                }`}
+                disabled
+                className="w-full py-3 rounded-xl font-semibold text-sm bg-white/5 text-gray-500 border border-white/5 cursor-not-allowed"
               >
-                Купить
+                Скоро
               </button>
             </div>
           ))}
         </div>
       </div>
-
-      {/* Payment Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            onClick={() => setShowModal(false)}
-          />
-          <div className="relative w-full max-w-md p-8 rounded-2xl border border-white/10 bg-[#111111] animate-fade-in">
-            <button
-              onClick={() => setShowModal(false)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors text-xl"
-            >
-              ✕
-            </button>
-
-            <h3 className="text-xl font-bold mb-2">Способ оплаты</h3>
-            <p className="text-gray-500 text-sm mb-6">
-              План: <span className="text-white">{selectedPlan}</span>
-            </p>
-
-            <div className="space-y-3">
-              {paymentMethods.map((method) => (
-                <button
-                  key={method.id}
-                  onClick={() => handlePayment(method.id)}
-                  className="w-full flex items-center gap-4 p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:border-red-500/30 hover:bg-red-500/5 transition-all duration-200 text-left"
-                >
-                  <span className="text-2xl">{method.icon}</span>
-                  <div>
-                    <p className="text-sm font-medium text-white">{method.name}</p>
-                    <p className="text-xs text-gray-500">{method.description}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
