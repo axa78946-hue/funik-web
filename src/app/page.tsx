@@ -23,10 +23,19 @@ export default function Home() {
     <div className="bg-grid bg-noise">
       {/* Hero */}
       <section className="gradient-top pt-40 pb-32 relative overflow-hidden">
+        {/* Particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="particle" /><div className="particle" /><div className="particle" />
+          <div className="particle" /><div className="particle" /><div className="particle" />
+          <div className="particle" /><div className="particle" /><div className="particle" />
+          <div className="particle" /><div className="particle" /><div className="particle" />
+          <div className="particle" /><div className="particle" /><div className="particle" />
+        </div>
+
         {/* Animated orbs */}
-        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-600/[0.04] blur-[100px] animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-indigo-600/[0.03] blur-[80px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-violet-600/[0.02] blur-[120px]" />
+        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-600/[0.05] blur-[100px] glow-orb" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-indigo-600/[0.04] blur-[80px] glow-orb" style={{animationDelay: "2s"}} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-violet-600/[0.03] blur-[120px] glow-orb" style={{animationDelay: "1s"}} />
         
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           {/* Badge */}
