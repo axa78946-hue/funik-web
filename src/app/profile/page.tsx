@@ -113,6 +113,19 @@ export default function Profile() {
       .update({ is_used: true, used_by: user.id, used_at: new Date().toISOString() })
       .eq("id", keyData.id);
 
+    // Handle HWID reset key
+    if (keyData.plan === "hwid_reset") {
+      await supabase
+        .from("subscriptions")
+        .update({ hwid: null })
+        .eq("user_id", user.id)
+        .eq("is_active", true);
+
+      setKeyMessage("HWID сброшен! При следующем запуске привяжется новый.");
+      setKey("");
+      return;
+    }
+
     // Create subscription
     let expiresAt: string | null = null;
     if (keyData.plan === "90days") {
