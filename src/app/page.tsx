@@ -22,28 +22,42 @@ export default function Home() {
   return (
     <div className="bg-grid bg-noise">
       {/* Hero */}
-      <section className="gradient-top pt-36 pb-28 relative overflow-hidden">
-        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-indigo-500/[0.03] blur-3xl" />
+      <section className="gradient-top pt-40 pb-32 relative overflow-hidden">
+        {/* Animated orbs */}
+        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-600/[0.04] blur-[100px] animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-indigo-600/[0.03] blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-violet-600/[0.02] blur-[120px]" />
+        
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-slide-up tracking-tight">
-            <span className="text-gradient">Funik</span> Client
+          {/* Badge */}
+          <div className="animate-fade-in mb-8">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-sm text-gray-300">
+              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+              Открытый бета-тест скоро
+            </span>
+          </div>
+
+          <h1 className="text-6xl md:text-8xl font-bold mb-8 animate-slide-up tracking-tighter leading-[0.9]">
+            <span className="text-gradient">Funik</span>
+            <br />
+            <span className="text-white/90">Client</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto animate-slide-up-delay leading-relaxed">
-            Мощный Minecraft Fabric клиент с передовым функционалом, стабильной работой и активным сообществом.
+          <p className="text-lg md:text-xl text-gray-400/80 mb-14 max-w-xl mx-auto animate-slide-up-delay leading-relaxed font-light">
+            Мощный Minecraft Fabric клиент нового поколения
           </p>
 
           <div className="flex gap-4 justify-center animate-slide-up-delay-2">
             <Link
               href="/products"
-              className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-xl transition-all duration-300 glow-blue hover:scale-[1.02]"
+              className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold rounded-2xl transition-all duration-300 glow-blue hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(99,102,241,0.3)]"
             >
-              Начать
+              Начать →
             </Link>
             <Link
               href="https://discord.gg/CE5Jhssp"
               target="_blank"
-              className="px-8 py-3.5 glass hover:bg-white/[0.05] text-white font-semibold rounded-xl transition-all duration-300"
+              className="px-8 py-4 glass hover:bg-white/[0.06] text-white/80 hover:text-white font-semibold rounded-2xl transition-all duration-300 hover:scale-[1.02]"
             >
               Discord
             </Link>
@@ -51,8 +65,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gradient divider */}
+      <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
+
       {/* Stats */}
-      <section className="py-16 border-y border-white/[0.03]">
+      <section className="py-20">
         <div className="max-w-3xl mx-auto px-6">
           <div className="grid grid-cols-3 gap-8">
             {[
@@ -60,14 +77,16 @@ export default function Home() {
               { value: "24/7", label: "Поддержка" },
               { value: "50+", label: "Функций" },
             ].map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</p>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">{stat.label}</p>
+              <div key={stat.label} className="text-center group">
+                <p className="text-3xl md:text-4xl font-bold text-white mb-2 group-hover:text-gradient transition-all duration-300">{stat.value}</p>
+                <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-medium">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
 
       {/* Features */}
       <section className="py-28">
