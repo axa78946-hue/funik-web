@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
   title: "Funik Client — Minecraft Fabric",
-  description: "Лучший Minecraft Fabric клиент. Сообщество, обновления, поддержка.",
+  description: "Мощный Minecraft Fabric клиент с передовым функционалом и активным сообществом.",
 };
 
 export default function RootLayout({
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${inter.className} bg-dark text-white min-h-screen flex flex-col`}>
+      <body className={`${inter.className} bg-[#050508] text-white min-h-screen flex flex-col antialiased`}>
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
