@@ -45,12 +45,13 @@ export default function Home() {
             {/* 3D Logo */}
             <div className="hidden md:flex h-[500px] items-center justify-center">
               <div className="relative">
-                <div className="absolute inset-[-40px] rounded-full bg-blue-500/[0.04] blur-[60px] animate-pulse" />
-                <div className="text-[200px] font-black text-transparent leading-none select-none" style={{
-                  WebkitTextStroke: "2px rgba(59,130,246,0.3)",
-                  textShadow: "0 0 80px rgba(59,130,246,0.15), 0 0 160px rgba(99,102,241,0.05)",
+                <div className="absolute inset-[-60px] rounded-full bg-blue-500/[0.06] blur-[80px] animate-pulse" />
+                <div className="text-[180px] font-black leading-none select-none italic" style={{
+                  background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #8b5cf6 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 0 40px rgba(99,102,241,0.3)) drop-shadow(0 0 80px rgba(59,130,246,0.15))",
                   fontFamily: "Segoe UI, sans-serif",
-                  fontStyle: "italic"
                 }}>
                   F
                 </div>
