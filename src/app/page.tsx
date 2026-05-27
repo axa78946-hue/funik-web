@@ -44,18 +44,22 @@ export default function Home() {
             </div>
             {/* 3D Scene */}
             <div className="hidden md:block h-[500px] relative">
-              <iframe
-                src="https://my.spline.design/abstractgradientblob-2b2e3f1e8e8b4c5a9d7f6a3c1b0d2e4f/"
-                className="w-full h-full border-0"
-                style={{ background: "transparent" }}
-              />
-              {/* Fallback gradient sphere */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="w-72 h-72 rounded-full relative">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600/30 via-indigo-800/20 to-transparent blur-xl animate-pulse" />
-                  <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 shadow-2xl shadow-blue-500/10" />
-                  <div className="absolute top-8 left-8 w-20 h-20 rounded-full bg-blue-400/10 blur-lg" />
-                  <div className="absolute inset-6 rounded-full border border-white/[0.05]" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-80 h-80 relative group">
+                  {/* Outer glow */}
+                  <div className="absolute inset-[-20px] rounded-full bg-blue-500/[0.06] blur-3xl animate-pulse" />
+                  {/* Main sphere */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden" style={{background: "radial-gradient(circle at 30% 30%, #1e3a5f 0%, #0a1628 40%, #050a14 70%, #020408 100%)"}}>
+                    {/* Highlight */}
+                    <div className="absolute top-[15%] left-[20%] w-[35%] h-[25%] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-md" />
+                    <div className="absolute top-[10%] left-[25%] w-[15%] h-[10%] rounded-full bg-white/10 blur-sm" />
+                    {/* Rim light */}
+                    <div className="absolute inset-0 rounded-full" style={{background: "radial-gradient(circle at 70% 80%, rgba(59,130,246,0.15) 0%, transparent 50%)"}} />
+                  </div>
+                  {/* Border ring */}
+                  <div className="absolute inset-0 rounded-full border border-white/[0.06]" />
+                  {/* Shadow */}
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 h-6 rounded-full bg-blue-500/[0.08] blur-xl" />
                 </div>
               </div>
             </div>
