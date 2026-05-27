@@ -26,20 +26,39 @@ export default function Home() {
         </div>
 
         <div className="max-w-6xl mx-auto px-6 w-full relative z-10 py-32">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.05] tracking-tight italic">
-              Раскрой Свой<br/>
-              <span className="text-gradient">Потенциал</span>
-            </h1>
-            <p className="text-gray-400 text-lg mb-10 max-w-md leading-relaxed">
-              Идеальное программное решение для продвинутых игроков. Испытайте производительность как никогда прежде.
-            </p>
-            <Link
-              href="/products"
-              className="inline-flex px-8 py-3.5 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white text-sm font-medium rounded-full transition-all duration-300"
-            >
-              Начать
-            </Link>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.05] tracking-tight italic">
+                Раскрой Свой<br/>
+                <span className="text-gradient">Потенциал</span>
+              </h1>
+              <p className="text-gray-400 text-lg mb-10 max-w-md leading-relaxed">
+                Идеальное программное решение для продвинутых игроков. Испытайте производительность как никогда прежде.
+              </p>
+              <Link
+                href="/products"
+                className="inline-flex px-8 py-3.5 border border-white/20 hover:border-white/40 hover:bg-white/5 text-white text-sm font-medium rounded-full transition-all duration-300"
+              >
+                Начать
+              </Link>
+            </div>
+            {/* 3D Scene */}
+            <div className="hidden md:block h-[500px] relative">
+              <iframe
+                src="https://my.spline.design/abstractgradientblob-2b2e3f1e8e8b4c5a9d7f6a3c1b0d2e4f/"
+                className="w-full h-full border-0"
+                style={{ background: "transparent" }}
+              />
+              {/* Fallback gradient sphere */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-72 h-72 rounded-full relative">
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-600/30 via-indigo-800/20 to-transparent blur-xl animate-pulse" />
+                  <div className="absolute inset-4 rounded-full bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 shadow-2xl shadow-blue-500/10" />
+                  <div className="absolute top-8 left-8 w-20 h-20 rounded-full bg-blue-400/10 blur-lg" />
+                  <div className="absolute inset-6 rounded-full border border-white/[0.05]" />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -58,8 +77,11 @@ export default function Home() {
               { value: "24/7", label: "Поддержка", desc: "Всегда на связи" },
               { value: "50+", label: "Функций", desc: "И растёт каждую неделю" },
             ].map((stat) => (
-              <div key={stat.label} className="p-8 rounded-2xl border border-white/[0.06] bg-white/[0.01] hover:border-white/[0.12] transition-all duration-300 group">
-                <p className="text-4xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{stat.value}</p>
+              <div key={stat.label} className="p-8 rounded-2xl border border-white/[0.06] bg-white/[0.01] hover:border-blue-500/20 transition-all duration-500 group hover:shadow-[0_0_60px_rgba(59,130,246,0.05)] hover:-translate-y-1">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/10 to-indigo-500/5 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 opacity-60 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <p className="text-4xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors duration-300">{stat.value}</p>
                 <p className="text-white font-medium text-sm">{stat.label}</p>
                 <p className="text-gray-600 text-xs mt-1">{stat.desc}</p>
               </div>
