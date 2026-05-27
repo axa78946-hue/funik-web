@@ -9,18 +9,17 @@ export default function Navbar() {
   const links = [
     { href: "/", label: "Главная" },
     { href: "/products", label: "Продукты" },
-    { href: "/updates", label: "Обновления" },
     { href: "/support", label: "Поддержка" },
+    { href: "/updates", label: "Обновления" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050508]/80 backdrop-blur-2xl border-b border-white/[0.03]">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-            <span className="text-white text-xs font-black">F</span>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#050508]/90 backdrop-blur-xl">
+      <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <span className="text-white text-[10px] font-black">F</span>
           </div>
-          <span className="text-sm font-bold text-white/90">Funik</span>
         </Link>
 
         <div className="hidden md:flex items-center gap-1">
@@ -28,10 +27,10 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`px-4 py-2 text-sm rounded-lg transition-all duration-200 ${
+              className={`px-3.5 py-1.5 text-[13px] transition-all duration-200 ${
                 pathname === link.href
-                  ? "text-white bg-white/[0.05]"
-                  : "text-gray-500 hover:text-white hover:bg-white/[0.03]"
+                  ? "text-white font-medium"
+                  : "text-gray-500 hover:text-white"
               }`}
             >
               {link.label}
@@ -41,7 +40,7 @@ export default function Navbar() {
 
         <Link
           href="/profile"
-          className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-sm font-medium rounded-lg transition-all duration-200 glow-blue-sm"
+          className="px-4 py-1.5 bg-white text-black text-[13px] font-medium rounded-full hover:bg-gray-200 transition-all duration-200"
         >
           Профиль
         </Link>
