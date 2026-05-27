@@ -42,24 +42,17 @@ export default function Home() {
                 Начать
               </Link>
             </div>
-            {/* 3D Scene */}
-            <div className="hidden md:block h-[500px] relative">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-80 h-80 relative group">
-                  {/* Outer glow */}
-                  <div className="absolute inset-[-20px] rounded-full bg-blue-500/[0.06] blur-3xl animate-pulse" />
-                  {/* Main sphere */}
-                  <div className="absolute inset-0 rounded-full overflow-hidden" style={{background: "radial-gradient(circle at 30% 30%, #1e3a5f 0%, #0a1628 40%, #050a14 70%, #020408 100%)"}}>
-                    {/* Highlight */}
-                    <div className="absolute top-[15%] left-[20%] w-[35%] h-[25%] rounded-full bg-gradient-to-br from-blue-300/20 to-transparent blur-md" />
-                    <div className="absolute top-[10%] left-[25%] w-[15%] h-[10%] rounded-full bg-white/10 blur-sm" />
-                    {/* Rim light */}
-                    <div className="absolute inset-0 rounded-full" style={{background: "radial-gradient(circle at 70% 80%, rgba(59,130,246,0.15) 0%, transparent 50%)"}} />
-                  </div>
-                  {/* Border ring */}
-                  <div className="absolute inset-0 rounded-full border border-white/[0.06]" />
-                  {/* Shadow */}
-                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-48 h-6 rounded-full bg-blue-500/[0.08] blur-xl" />
+            {/* 3D Logo */}
+            <div className="hidden md:flex h-[500px] items-center justify-center">
+              <div className="relative">
+                <div className="absolute inset-[-40px] rounded-full bg-blue-500/[0.04] blur-[60px] animate-pulse" />
+                <div className="text-[200px] font-black text-transparent leading-none select-none" style={{
+                  WebkitTextStroke: "2px rgba(59,130,246,0.3)",
+                  textShadow: "0 0 80px rgba(59,130,246,0.15), 0 0 160px rgba(99,102,241,0.05)",
+                  fontFamily: "Segoe UI, sans-serif",
+                  fontStyle: "italic"
+                }}>
+                  F
                 </div>
               </div>
             </div>
