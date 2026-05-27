@@ -42,27 +42,28 @@ export default function Home() {
                 Начать
               </Link>
             </div>
-            {/* Abstract 3D element */}
+            {/* Logo F with rings */}
             <div className="hidden md:flex h-[500px] items-center justify-center">
-              <div className="relative w-72 h-72">
+              <div className="relative w-64 h-64 flex items-center justify-center">
                 {/* Glow */}
-                <div className="absolute inset-[-30px] rounded-full bg-blue-500/[0.05] blur-[60px] animate-pulse" />
+                <div className="absolute inset-[-40px] rounded-full bg-indigo-500/[0.06] blur-[70px] animate-pulse" />
                 {/* Outer ring */}
-                <div className="absolute inset-0 rounded-full border border-white/[0.08] animate-[spin_20s_linear_infinite]" />
-                {/* Middle ring */}
-                <div className="absolute inset-8 rounded-full border border-blue-500/20 animate-[spin_15s_linear_infinite_reverse]" />
+                <div className="absolute inset-0 rounded-full border border-white/[0.06] animate-[spin_25s_linear_infinite]" />
                 {/* Inner ring */}
-                <div className="absolute inset-16 rounded-full border border-indigo-500/30 animate-[spin_10s_linear_infinite]" />
-                {/* Core */}
-                <div className="absolute inset-24 rounded-full bg-gradient-to-br from-blue-600/20 to-indigo-600/10 backdrop-blur-sm border border-white/[0.06]" />
-                {/* Dot */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.6)]" />
-                {/* Orbiting dots */}
-                <div className="absolute inset-0 animate-[spin_8s_linear_infinite]">
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-blue-400/60" />
-                </div>
-                <div className="absolute inset-8 animate-[spin_12s_linear_infinite_reverse]">
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-indigo-400/60" />
+                <div className="absolute inset-6 rounded-full border border-blue-500/10 animate-[spin_18s_linear_infinite_reverse]" />
+                {/* F letter */}
+                <span className="relative text-[100px] font-black select-none" style={{
+                  background: "linear-gradient(180deg, #ffffff 0%, #6366f1 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 0 30px rgba(99,102,241,0.4))",
+                  fontFamily: "Segoe UI, sans-serif",
+                }}>
+                  F
+                </span>
+                {/* Orbiting dot */}
+                <div className="absolute inset-0 animate-[spin_6s_linear_infinite]">
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.8)]" />
                 </div>
               </div>
             </div>
