@@ -10,6 +10,7 @@ export default function Navbar() {
     { href: "/", label: "Главная" },
     { href: "/products", label: "Продукты" },
     { href: "/updates", label: "Обновления" },
+    { href: "/support", label: "Поддержка" },
   ];
 
   return (

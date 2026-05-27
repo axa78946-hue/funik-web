@@ -28,7 +28,7 @@ interface Key {
   used_username: string | null;
 }
 
-type Tab = "users" | "keys" | "give";
+type Tab = "users" | "keys" | "give" | "tickets";
 
 export default function Admin() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -136,6 +136,7 @@ export default function Admin() {
     { id: "users", label: `Подписки (${subscriptions.length})` },
     { id: "keys", label: `Ключи (${keys.length})` },
     { id: "give", label: "Выдать" },
+    { id: "tickets", label: "Тикеты" },
   ];
 
   return (
@@ -288,7 +289,78 @@ export default function Admin() {
             </div>
           </div>
         )}
+
+        {/* TICKETS */}
+        {activeTab === "tickets" && <AdminTickets />}
       </div>
+    </div>
+  );
+}
+
+function AdminTickets() {
+  const [tickets, setTickets] = useState<any[]>([]);
+  const [replyText, setReplyText] = useState<Record<string, string>>({});
+
+  useEffect(() => { loadTickets(); }, []);
+
+  const loadTickets = async () => {
+    const { data } = await getSupabase().from("tickets").select("*").order("created_at", { ascending: false });
+    if (data) setTickets(data);
+  };
+
+  const handleReply = async (id: string) => {
+    const reply = replyText[id];
+    if (!reply?.trim()) return;
+    await getSupabase().from("tickets").update({ admin_reply: reply, status: "answered" }).eq("id", id);
+    setReplyText(prev => ({ ...prev, [id]: "" }));
+    loadTickets();
+  };
+
+  const closeTicket = async (id: string) => {
+    await getSupabase().from("tickets").update({ status: "closed" }).eq("id", id);
+    loadTickets();
+  };
+
+  return (
+    <div className="space-y-4">
+      {tickets.length === 0 && <p className="text-gray-500 text-center py-8">Нет тикетов</p>}
+      {tickets.map((t) => (
+        <div key={t.id} className="p-5 rounded-xl border border-white/5 bg-white/[0.02]">
+          <div className="flex items-start justify-between mb-2">
+            <div>
+              <h3 className="font-semibold text-white">{t.subject}</h3>
+              <span className="text-xs text-gray-500 font-mono">{t.user_id?.slice(0, 8)}...</span>
+              <span className="text-xs text-gray-600 ml-2">{new Date(t.created_at).toLocaleDateString("ru-RU")}</span>
+            </div>
+            <span className={`px-2 py-0.5 rounded text-xs ${
+              t.status === "open" ? "bg-yellow-500/20 text-yellow-400" :
+              t.status === "answered" ? "bg-green-500/20 text-green-400" :
+              "bg-gray-500/20 text-gray-400"
+            }`}>
+              {t.status === "open" ? "Открыт" : t.status === "answered" ? "Отвечен" : "Закрыт"}
+            </span>
+          </div>
+          <p className="text-gray-400 text-sm mb-3">{t.message}</p>
+          {t.admin_reply && (
+            <div className="p-3 rounded-lg bg-blue-500/5 border border-blue-500/10 mb-3">
+              <p className="text-gray-300 text-sm">{t.admin_reply}</p>
+            </div>
+          )}
+          {t.status !== "closed" && (
+            <div className="flex gap-2 items-end">
+              <input
+                type="text"
+                value={replyText[t.id] || ""}
+                onChange={(e) => setReplyText(prev => ({ ...prev, [t.id]: e.target.value }))}
+                placeholder="Ответить..."
+                className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-gray-600 focus:outline-none focus:border-blue-500/50"
+              />
+              <button onClick={() => handleReply(t.id)} className="px-4 py-2 text-xs bg-blue-600 hover:bg-blue-500 text-white rounded-lg">Ответить</button>
+              <button onClick={() => closeTicket(t.id)} className="px-4 py-2 text-xs bg-white/5 hover:bg-white/10 text-gray-400 rounded-lg">Закрыть</button>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
